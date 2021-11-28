@@ -1,20 +1,11 @@
 name: Qodana check on pull requests
-on: [push]
+on: [pull_request]
 jobs:
   qodana:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-#      - uses: actions/cache@v2
-#        with:
-#          path: ~/work/_temp/_github_home/cache
-#          key: ${{ runner.os }}-qodana-${{ github.ref }}
-#          restore-keys: |
-#            ${{ runner.os }}-qodana-${{ github.ref }}
-#            ${{ runner.os }}-qodana-
       - uses: JetBrains/qodana-action@v3.2.1
         with:
           linter: qodana-jvm-community
-      - uses: actions/upload-artifact@v2
-        with:
-          path: qodana
+          fail-threshold: 1
