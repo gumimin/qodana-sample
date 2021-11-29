@@ -9,6 +9,8 @@ jobs:
       - run: 'docker run --rm -it -p 8080:8080 -v $(pwd)/:/data/project/ -v $(pwd)/:/data/results/ jetbrains/qodana-jvm-community --save-report > result.txt'
       - run: 'cat result.txt'
       - run: |
-          if grep 'problems detected' result.txt ;
-            then exit 1
+          if grep 'Analysis results: 0 problems detected' result.txt ; then
+            exit 0
+          else
+            exit 1
           fi
