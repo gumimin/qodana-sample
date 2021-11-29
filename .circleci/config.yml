@@ -4,6 +4,10 @@ jobs:
     machine: true
     steps:
       - checkout
-      - run: 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'
+      - run: 'echo "$DOCKER_PASSWORD" | docker login --username $DOCKER_USERNAME --password-stdin'
       - run: 'docker pull jetbrains/qodana-jvm-community'
       - run: 'docker run --rm -it -p 8080:8080 -v $(pwd)/:/data/project/ -v $(pwd)/:/data/results/ jetbrains/qodana-jvm-community --save-report'
+      - run: |
+          if grep 'problems detected' text.text ;
+            then exit 1
+          fi
