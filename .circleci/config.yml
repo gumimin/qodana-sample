@@ -1,13 +1,15 @@
 version: 2.1
 jobs:
   build:
-    docker:
-      - image: jetbrains/qodana-jvm-community
-        auth:
-          username: $DOCKER_USERNAME
-          password: $DOCKER_PASSWORD
+    machine: true
+#    docker:
+#      - image: jetbrains/qodana-jvm-community
+#        auth:
+#          username: $DOCKER_USERNAME
+#          password: $DOCKER_PASSWORD
     steps:
       - checkout
-      - setup_remote_docker
-      - run: docker pull jetbrains/qodana-jvm-community
-      - run: docker run --rm -it -p 8080:8080 -v $(pwd)/:/data/project/ -v $(pwd)/:/data/results/ jetbrains/qodana-jvm-community --show-report
+#      - setup_remote_docker
+      - run: 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'
+      - run: 'docker pull jetbrains/qodana-jvm-community'
+      - run: 'docker run --rm -it -p 8080:8080 -v $(pwd)/:/data/project/ -v $(pwd)/:/data/results/ jetbrains/qodana-jvm-community --show-report'
