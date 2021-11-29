@@ -5,4 +5,6 @@ jobs:
       - image: jetbrains/qodana-jvm-community
     steps:
       - checkout
+      - setup_remote_docker
+      - run: docker pull jetbrains/qodana-jvm-community
       - run: docker run --rm -it -p 8080:8080 -v $(pwd)/:/data/project/ -v $(pwd)/:/data/results/ jetbrains/qodana-jvm-community --show-report
