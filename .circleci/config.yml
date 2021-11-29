@@ -1,8 +1,7 @@
 version: 2.1
 jobs:
   build:
-    docker:
-      - image: jetbrains/qodana-jvm-community
+    machine: true
     steps:
       - checkout
       - setup_remote_docker
