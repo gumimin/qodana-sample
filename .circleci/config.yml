@@ -3,6 +3,9 @@ jobs:
   build:
     docker:
       - image: jetbrains/qodana-jvm-community
+        auth:
+          username: $DOCKER_USERNAME
+          password: $DOCKER_PASSWORD
     steps:
       - checkout
       - setup_remote_docker:
