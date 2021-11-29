@@ -6,8 +6,8 @@ jobs:
       - checkout
       - run: 'echo "$DOCKER_PASSWORD" | docker login --username $DOCKER_USERNAME --password-stdin'
       - run: 'docker pull jetbrains/qodana-jvm-community'
-      - run: 'docker run --rm -it -p 8080:8080 -v $(pwd)/:/data/project/ -v $(pwd)/:/data/results/ jetbrains/qodana-jvm-community --save-report'
+      - run: 'docker run --rm -it -p 8080:8080 -v $(pwd)/:/data/project/ -v $(pwd)/:/data/results/ jetbrains/qodana-jvm-community --save-report > result.txt'
       - run: |
-          if grep 'problems detected' text.text ;
+          if grep 'problems detected' result.txt ;
             then exit 1
           fi
